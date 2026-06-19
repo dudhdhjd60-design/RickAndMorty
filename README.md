@@ -1,25 +1,10 @@
 # Rick and Morty Characters
 
-<div align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Rick_and_Morty.svg/1200px-Rick_and_Morty.svg.png" width="300"/>
-  
-  ![Kotlin](https://img.shields.io/badge/Kotlin-1.9.23-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)
-  ![Android](https://img.shields.io/badge/Android-24+-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-  ![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-BOM_2024.05-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white)
-  ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-</div>
-
 ---
 
 ## About
 
 Android application displaying characters from the **Rick and Morty** universe. Built with modern Android development stack following Clean Architecture principles.
-
----
-
-## Screenshots
-
-> *Screenshots will be added after final release build*
 
 ---
 

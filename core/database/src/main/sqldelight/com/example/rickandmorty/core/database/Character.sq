@@ -1,0 +1,46 @@
+CREATE TABLE IF NOT EXISTS characterEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    status TEXT NOT NULL,
+    species TEXT NOT NULL,
+    type TEXT NOT NULL,
+    gender TEXT NOT NULL,
+    originName TEXT NOT NULL,
+    locationName TEXT NOT NULL,
+    imageUrl TEXT NOT NULL,
+    episodeCount INTEGER NOT NULL,
+    created TEXT NOT NULL,
+    isFavorite INTEGER NOT NULL DEFAULT 0
+);
+
+selectAll:
+SELECT * FROM characterEntity
+ORDER BY isFavorite DESC, name ASC;
+
+selectById:
+SELECT * FROM characterEntity
+WHERE id = :id;
+
+selectByStatus:
+SELECT * FROM characterEntity
+WHERE status = :status
+ORDER BY isFavorite DESC, name ASC;
+
+insert:
+INSERT OR REPLACE INTO characterEntity(
+    id, name, status, species, type, gender,
+    originName, locationName, imageUrl, episodeCount, created, isFavorite
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateFavorite:
+UPDATE characterEntity
+SET isFavorite = :isFavorite
+WHERE id = :id;
+
+selectFavourites:
+SELECT * FROM characterEntity
+WHERE isFavorite = 1
+ORDER BY name ASC;
+
+countAll:
+SELECT COUNT(*) FROM characterEntity;

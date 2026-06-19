@@ -1,7 +1,5 @@
 # Rick and Morty Characters
 
----
-
 ## About
 
 Android application displaying characters from the **Rick and Morty** universe. Built with modern Android development stack following Clean Architecture principles.

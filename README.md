@@ -1,111 +1,107 @@
 # Rick and Morty Characters
 
-## About
+## О проекте
 
-Android application displaying characters from the **Rick and Morty** universe. Built with modern Android development stack following Clean Architecture principles.
-
----
-
-## Features
-
-- **Character List** — browse all characters with status filter (All / Alive / Dead / Unknown)
-- **Character Details** — full biography with image, origin, location and episode count
-- **Favourites** — mark characters as favourite, they float to the top of the list
-- **Offline support** — data cached in SQLDelight database on first launch
-- **Pull-to-refresh** — update data from API at any time
-- **Dark theme** — Rick and Morty inspired dark colour palette
+Android-приложение, отображающее персонажей вселенной **«Рик и Морти»**. Разработано с использованием современного стека Android-разработки и принципов Чистой архитектуры.
 
 ---
 
-## Architecture
+## Возможности
 
-The project follows **Clean Architecture** with **MVVM** pattern, organized as a multi-module project.
+- **Список персонажей** — просмотр всех персонажей с фильтром по статусу (Все / Живые / Мёртвые / Неизвестно)
+- **Детали персонажа** — полная биография: изображение, происхождение, локация и количество эпизодов
+- **Избранное** — возможность отметить персонажа как избранного; избранные поднимаются в начало списка
+- **Офлайн-режим** — данные кешируются в базу SQLDelight при первом запуске
+- **Обновление по свайпу** — в любой момент можно загрузить свежие данные с API
+- **Тёмная тема** — цветовая палитра в стиле «Рика и Морти»
 
-```
+---
+
+## Архитектура
+
+Проект построен по принципам **Чистой архитектуры** с паттерном **MVVM** и разделён на несколько модулей.
+
 RickAndMorty/
-├── app/                    # Single Activity, Navigation, DI, Theme
+├── app/ # Единственная Activity, навигация, DI, тема
 ├── core/
-│   ├── model/              # Domain models (Character, CharacterStatus)
-│   ├── network/            # Retrofit + OkHttp, DTOs, NetworkModule
-│   └── database/           # SQLDelight schema, DatabaseModule
+│ ├── model/ # Доменные модели (Character, CharacterStatus)
+│ ├── network/ # Retrofit + OkHttp, DTO, NetworkModule
+│ └── database/ # Схема SQLDelight, DatabaseModule
 └── feature/
-    ├── list/               # Character list screen (data / domain / presentation)
-    └── details/            # Character details screen (data / domain / presentation)
-```
+├── list/ # Экран списка персонажей (data / domain / presentation)
+└── details/ # Экран деталей персонажа (data / domain / presentation)
+text
 
-### Layer breakdown
 
-| Layer | Responsibility |
-|---|---|
-| `data` | Repository implementations, network/DB mappers |
-| `domain` | Repository interfaces, Use Cases |
-| `presentation` | ViewModel, State, UI (Compose) |
+### Разбивка по слоям
+
+| Слой           | Зона ответственности                                 |
+| -------------- | ---------------------------------------------------- |
+| `data`         | Реализации репозиториев, мапперы сеть/БД             |
+| `domain`       | Интерфейсы репозиториев, Use Cases                   |
+| `presentation` | ViewModel, State, UI (Jetpack Compose)               |
 
 ---
 
-## Tech Stack
+## Технологический стек
 
-| Category | Technology |
-|---|---|
-| Language | Kotlin 1.9.23 |
-| UI | Jetpack Compose + Material 3 |
-| Architecture | MVVM + Clean Architecture + State Hoisting |
-| DI | Hilt 2.51.1 |
-| Navigation | Compose Navigation |
-| Network | Retrofit 2.11 + OkHttp 4.12 |
-| Database | SQLDelight 2.0.2 |
-| Image Loading | Coil 2.6.0 |
-| Async | Kotlin Coroutines + Flow |
-| Build | Gradle 8.9 + AGP 8.3.2 + Version Catalog |
+| Категория            | Технология                              |
+| -------------------- | --------------------------------------- |
+| Язык программирования | Kotlin 1.9.23                          |
+| UI                   | Jetpack Compose + Material 3            |
+| Архитектура          | MVVM + Clean Architecture + State Hoisting |
+| DI                   | Hilt 2.51.1                             |
+| Навигация            | Compose Navigation                      |
+| Сеть                 | Retrofit 2.11 + OkHttp 4.12             |
+| База данных          | SQLDelight 2.0.2                        |
+| Загрузка изображений | Coil 2.6.0                              |
+| Асинхронность        | Kotlin Coroutines + Flow                |
+| Сборка               | Gradle 8.9 + AGP 8.3.2 + Version Catalog |
 
 ---
 
 ## API
 
-Uses the free [Rick and Morty API](https://rickandmortyapi.com/) — no API key required.
+Используется бесплатное [Rick and Morty API](https://rickandmortyapi.com/) — ключ API не требуется.
 
-| Endpoint | Description |
-|---|---|
-| `GET /api/character?page={n}` | Paginated character list |
-| `GET /api/character/{id}` | Single character details |
-
----
-
-## Data Flow
-
-```
-API (Retrofit) ──► Repository ──► SQLDelight DB ──► Flow ──► ViewModel ──► UI
-                        │
-                   Cache on first launch
-                   isFavorite preserved on refresh
-```
-
-On first launch data is fetched from the API and cached. On subsequent launches the cache is shown immediately, with pull-to-refresh available for updates.
+| Метод                            | Описание                        |
+| -------------------------------- | ------------------------------- |
+| `GET /api/character?page={n}`    | Постраничный список персонажей |
+| `GET /api/character/{id}`        | Информация об одном персонаже  |
 
 ---
 
-## Getting Started
+## Поток данных
 
-### Prerequisites
-- Android Studio Hedgehog or newer
-- JDK 17+ (bundled with Android Studio)
-- Android device or emulator with API 24+
+API (Retrofit) ──► Репозиторий ──► SQLDelight БД ──► Flow ──► ViewModel ──► UI
+│
+Кеширование при первом запуске
+При обновлении флаг избранного сохраняется
+text
 
-### Build & Run
+
+При первом запуске данные загружаются из API и кешируются локально. При последующих запусках сразу отображается кеш, а для обновления данных достаточно сделать свайп вниз.
+
+---
+
+## Начало работы
+
+### Требования
+- Android Studio Hedgehog или новее
+- JDK 17+ (поставляется вместе с Android Studio)
+- Android-устройство или эмулятор с API 24+
+
+### Сборка и запуск
 
 ```bash
 git clone https://github.com/cringe/RickAndMorty.git
 cd RickAndMorty
 ./gradlew assembleDebug
-```
 
-Or simply open the project in Android Studio and press **Run**.
+Либо просто откройте проект в Android Studio и нажмите Run.
+Зависимости модулей
+text
 
----
-
-## Module Dependencies
-
-```
 app
  ├── feature:list
  │    ├── core:model
@@ -118,16 +114,8 @@ app
  ├── core:model
  ├── core:network
  └── core:database
-```
 
----
+Система избранного
 
-## Favourite System
-
-Favourites are stored as an `isFavorite` flag in the SQLDelight database. Toggling a favourite on the details screen immediately reorders the character list — favourited characters always appear at the top, sorted alphabetically within each group.
-
----
-
-<div align="center">
-  Made with ❤️ and a portal gun
-</div>
+Избранное хранится в виде флага isFavorite в базе данных SQLDelight. Переключение избранного на экране деталей мгновенно переупорядочивает список: избранные персонажи всегда показываются вверху, а внутри каждой группы сортируются по алфавиту.
+<div align="center"> Сделано с ❤️ и портальной пушкой </div> ```
